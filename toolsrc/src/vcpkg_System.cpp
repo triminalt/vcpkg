@@ -15,7 +15,7 @@ namespace vcpkg::System
 
     int cmd_execute_clean(const cwstring_view cmd_line)
     {
-        static const std::wstring system_root = get_environmental_variable(L"SystemRoot").get_or_exit(VCPKG_LINE_INFO);
+        static const std::wstring system_root = get_environmental_variable(L"SystemRoot").value_or_exit(VCPKG_LINE_INFO);
         static const std::wstring system_32 = system_root + LR"(\system32)";
         static const std::wstring new_PATH = Strings::wformat(LR"(Path=%s;%s;%s\WindowsPowerShell\v1.0\)", system_32, system_root, system_32);
 
@@ -167,12 +167,13 @@ namespace vcpkg::System
         if (sz == 0)
             return nullopt;
 
-        auto ret = std::make_unique<std::wstring>(sz, L'\0');
-        Checks::check_exit(VCPKG_LINE_INFO, MAXDWORD >= ret->size());
-        auto sz2 = GetEnvironmentVariableW(varname, ret->data(), static_cast<DWORD>(ret->size()));
+        std::wstring ret(sz, L'\0');
+
+        Checks::check_exit(VCPKG_LINE_INFO, MAXDWORD >= ret.size());
+        auto sz2 = GetEnvironmentVariableW(varname, ret.data(), static_cast<DWORD>(ret.size()));
         Checks::check_exit(VCPKG_LINE_INFO, sz2 + 1 == sz);
-        ret->pop_back();
-        return *ret.release();
+        ret.pop_back();
+        return ret;
     }
 
     void set_environmental_variable(const cwstring_view varname, const cwstring_view varvalue) noexcept

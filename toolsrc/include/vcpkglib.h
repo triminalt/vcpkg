@@ -23,10 +23,12 @@ namespace vcpkg
 
     struct CMakeVariable
     {
-        CMakeVariable(const std::wstring& varname, const wchar_t* varvalue);
-        CMakeVariable(const std::wstring& varname, const std::string& varvalue);
-        CMakeVariable(const std::wstring& varname, const std::wstring& varvalue);
-        CMakeVariable(const std::wstring& varname, const fs::path& path);
+        CMakeVariable(const cwstring_view varname, const cwstring_view varvalue);
+        CMakeVariable(const cwstring_view varname, const cstring_view varvalue);
+        static CMakeVariable from_path(const cwstring_view varname, const fs::path& path)
+        {
+            return CMakeVariable(varname, path.generic_wstring());
+        }
 
         std::wstring s;
     };

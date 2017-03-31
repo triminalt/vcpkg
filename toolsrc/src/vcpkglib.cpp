@@ -22,7 +22,7 @@ namespace vcpkg
             fs::rename(vcpkg_dir_status_file_old, vcpkg_dir_status_file);
         }
 
-        auto pghs = Paragraphs::get_paragraphs(vcpkg_dir_status_file).get_or_exit(VCPKG_LINE_INFO);
+        auto pghs = Paragraphs::get_paragraphs(vcpkg_dir_status_file).value_or_exit(VCPKG_LINE_INFO);
 
         std::vector<std::unique_ptr<StatusParagraph>> status_pghs;
         for (auto&& p : pghs)
@@ -64,7 +64,7 @@ namespace vcpkg
             if (b->path().filename() == "incomplete")
                 continue;
 
-            auto pghs = Paragraphs::get_paragraphs(b->path()).get_or_exit(VCPKG_LINE_INFO);
+            auto pghs = Paragraphs::get_paragraphs(b->path()).value_or_exit(VCPKG_LINE_INFO);
             for (auto&& p : pghs)
             {
                 current_status_db.insert(std::make_unique<StatusParagraph>(p));
@@ -183,7 +183,7 @@ namespace vcpkg
             }
 
             const fs::path listfile_path = paths.listfile_path(pgh->package);
-            std::vector<std::string> installed_files_of_current_pgh = Files::read_all_lines(listfile_path).get_or_exit(VCPKG_LINE_INFO);
+            std::vector<std::string> installed_files_of_current_pgh = Files::read_all_lines(listfile_path).value_or_exit(VCPKG_LINE_INFO);
             Strings::trim_all_and_remove_whitespace_strings(&installed_files_of_current_pgh);
             upgrade_to_slash_terminated_sorted_format(&installed_files_of_current_pgh, listfile_path);
 
@@ -202,10 +202,8 @@ namespace vcpkg
         return installed_files;
     }
 
-    CMakeVariable::CMakeVariable(const std::wstring& varname, const wchar_t* varvalue) : s(Strings::wformat(LR"("-D%s=%s")", varname, varvalue)) { }
-    CMakeVariable::CMakeVariable(const std::wstring& varname, const std::string& varvalue) : CMakeVariable(varname, Strings::utf8_to_utf16(varvalue).c_str()) { }
-    CMakeVariable::CMakeVariable(const std::wstring& varname, const std::wstring& varvalue) : CMakeVariable(varname, varvalue.c_str()) {}
-    CMakeVariable::CMakeVariable(const std::wstring& varname, const fs::path& path) : CMakeVariable(varname, path.generic_wstring()) {}
+    CMakeVariable::CMakeVariable(const cwstring_view varname, const cwstring_view varvalue) : s(Strings::wformat(LR"("-D%s=%s")", varname, varvalue)) { }
+    CMakeVariable::CMakeVariable(const cwstring_view varname, const cstring_view varvalue) : CMakeVariable(varname, Strings::utf8_to_utf16(varvalue)) { }
 
     std::wstring make_cmake_cmd(const fs::path& cmake_exe, const fs::path& cmake_script, const std::vector<CMakeVariable>& pass_variables)
     {

@@ -34,6 +34,9 @@ namespace vcpkg
     };
 
     inline const wchar_t* to_wprintf_arg(const cwstring_view spec) { return spec.c_str(); }
+
+    static_assert(sizeof(cstring_view) == sizeof(void*), "cstring_view must be a simple wrapper around char*");
+    static_assert(sizeof(cwstring_view) == sizeof(void*), "cwstring_view must be a simple wrapper around wchar_t*");
 }
 
 namespace vcpkg::Strings::details
@@ -99,9 +102,9 @@ namespace vcpkg::Strings
         return details::wformat_internal(fmtstr, to_wprintf_arg(to_wprintf_arg(args))...);
     }
 
-    std::wstring utf8_to_utf16(const std::string& s);
+    std::wstring utf8_to_utf16(const cstring_view s);
 
-    std::string utf16_to_utf8(const std::wstring& w);
+    std::string utf16_to_utf8(const cwstring_view w);
 
     std::string::const_iterator case_insensitive_ascii_find(const std::string& s, const std::string& pattern);
 

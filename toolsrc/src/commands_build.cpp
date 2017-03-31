@@ -50,10 +50,10 @@ namespace vcpkg::Commands::Build
                                                              {
                                                                  { L"CMD", L"BUILD" },
                                                                  { L"PORT", source_paragraph.name },
-                                                                 { L"CURRENT_PORT_DIR", port_dir / "/." },
+                                                                 CMakeVariable::from_path(L"CURRENT_PORT_DIR", port_dir / "/."),
                                                                  { L"TARGET_TRIPLET", target_triplet.canonical_name() },
                                                                  { L"VCPKG_PLATFORM_TOOLSET", vcvarsall_bat.platform_toolset },
-                                                                 { L"GIT", git_exe_path }
+                                                                 CMakeVariable::from_path(L"GIT", git_exe_path),
                                                              });
 
         const std::wstring command = Strings::wformat(LR"(%s && %s)", cmd_set_environment, cmd_launch_cmake);

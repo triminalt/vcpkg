@@ -20,7 +20,7 @@ namespace vcpkg::Commands::CI
         std::vector<package_spec> specs;
         for (const SourceParagraph& p : ports)
         {
-            specs.push_back(package_spec::from_name_and_triplet(p.name, target_triplet).get_or_exit(VCPKG_LINE_INFO));
+            specs.push_back(package_spec::from_name_and_triplet(p.name, target_triplet).value_or_exit(VCPKG_LINE_INFO));
         }
 
         return specs;
@@ -62,7 +62,7 @@ namespace vcpkg::Commands::CI
                 }
                 else if (action.plan.plan_type == install_plan_type::BUILD_AND_INSTALL)
                 {
-                    const BuildResult result = Commands::Build::build_package(action.plan.source_pgh.get_or_exit(VCPKG_LINE_INFO),
+                    const BuildResult result = Commands::Build::build_package(action.plan.source_pgh.value_or_exit(VCPKG_LINE_INFO),
                                                                               action.spec,
                                                                               paths,
                                                                               paths.port_dir(action.spec),
@@ -74,14 +74,14 @@ namespace vcpkg::Commands::CI
                         System::println(System::color::error, Build::create_error_message(result, action.spec));
                         continue;
                     }
-                    const BinaryParagraph bpgh = Paragraphs::try_load_cached_package(paths, action.spec).get_or_exit(VCPKG_LINE_INFO);
+                    const BinaryParagraph bpgh = Paragraphs::try_load_cached_package(paths, action.spec).value_or_exit(VCPKG_LINE_INFO);
                     Install::install_package(paths, bpgh, &status_db);
                     System::println(System::color::success, "Package %s is installed", action.spec);
                 }
                 else if (action.plan.plan_type == install_plan_type::INSTALL)
                 {
                     results.back() = BuildResult::SUCCEEDED;
-                    Install::install_package(paths, action.plan.binary_pgh.get_or_exit(VCPKG_LINE_INFO), &status_db);
+                    Install::install_package(paths, action.plan.binary_pgh.value_or_exit(VCPKG_LINE_INFO), &status_db);
                     System::println(System::color::success, "Package %s is installed from cache", action.spec);
                 }
                 else
