@@ -1,6 +1,7 @@
 #pragma once
-#pragma once
+
 #include <string>
+#include "vcpkg_Strings.h"
 
 namespace vcpkg::PostBuildLint::ConfigurationType
 {
@@ -17,13 +18,13 @@ namespace vcpkg::PostBuildLint::ConfigurationType
         constexpr explicit type(backing_enum_t backing_enum) : backing_enum(backing_enum) { }
         constexpr operator backing_enum_t() const { return backing_enum; }
 
-        const std::string& toString() const;
+        cstring_view toString() const;
 
     private:
         backing_enum_t backing_enum;
     };
 
-    static const std::string ENUM_NAME = "vcpkg::PostBuildLint::ConfigurationType";
+    static const constexpr char ENUM_NAME[] = "vcpkg::PostBuildLint::ConfigurationType";
 
     static constexpr type NULLVALUE(backing_enum_t::NULLVALUE);
     static constexpr type DEBUG(backing_enum_t::DEBUG);

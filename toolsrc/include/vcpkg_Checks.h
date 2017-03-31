@@ -35,7 +35,7 @@ namespace vcpkg::Checks
     }
 
     [[noreturn]]
-    void exit_with_message(const line_info& linfo, const cstring_view errorMessage = "");
+    void exit_with_message(const line_info& linfo, const cstring_view errorMessage = nullptr);
 
     template <class Arg1, class...Args>
     [[noreturn]]

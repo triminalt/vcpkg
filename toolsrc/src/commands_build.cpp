@@ -7,7 +7,6 @@
 #include "vcpkg_Dependencies.h"
 #include "vcpkg_System.h"
 #include "vcpkg_Chrono.h"
-#include "vcpkg_Environment.h"
 #include "metrics.h"
 #include "vcpkg_Enums.h"
 #include "Paragraphs.h"
@@ -43,8 +42,8 @@ namespace vcpkg::Commands::Build
         const fs::path& git_exe_path = paths.get_git_exe();
 
         const fs::path ports_cmake_script_path = paths.ports_cmake;
-        const Environment::vcvarsall_and_platform_toolset vcvarsall_bat = Environment::get_vcvarsall_bat(paths);
-        const std::wstring cmd_set_environment = Strings::wformat(LR"("%s" %s >nul 2>&1)", vcvarsall_bat.path.native(), Strings::utf8_to_utf16(target_triplet.architecture()));
+        const vcvarsall_and_platform_toolset vcvarsall_bat = paths.get_vcvarsall_bat();
+        const std::wstring cmd_set_environment = Strings::wformat(LR"("%s" %s >nul 2>&1)", vcvarsall_bat.vcvarsall.native(), Strings::utf8_to_utf16(target_triplet.architecture()));
 
         const std::wstring cmd_launch_cmake = make_cmake_cmd(cmake_exe_path, ports_cmake_script_path,
                                                              {
@@ -86,9 +85,9 @@ namespace vcpkg::Commands::Build
         return BuildResult::SUCCEEDED;
     }
 
-    const std::string& to_string(const BuildResult build_result)
+    cstring_view to_string(const BuildResult build_result)
     {
-        static const std::string NULLVALUE_STRING = Enums::nullvalue_toString("vcpkg::Commands::Build::BuildResult");
+        static constexpr auto NULLVALUE_STRING = Enums::nullvalue_toString("vcpkg::Commands::Build::BuildResult");
         static const std::string SUCCEEDED_STRING = "SUCCEEDED";
         static const std::string BUILD_FAILED_STRING = "BUILD_FAILED";
         static const std::string POST_BUILD_CHECKS_FAILED_STRING = "POST_BUILD_CHECKS_FAILED";
@@ -96,7 +95,7 @@ namespace vcpkg::Commands::Build
 
         switch (build_result)
         {
-            case BuildResult::NULLVALUE: return NULLVALUE_STRING;
+            case BuildResult::NULLVALUE: return NULLVALUE_STRING.data();
             case BuildResult::SUCCEEDED: return SUCCEEDED_STRING;
             case BuildResult::BUILD_FAILED: return BUILD_FAILED_STRING;
             case BuildResult::POST_BUILD_CHECKS_FAILED: return POST_BUILD_CHECKS_FAILED_STRING;

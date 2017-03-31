@@ -5,12 +5,11 @@
 
 namespace vcpkg::PostBuildLint::ConfigurationType
 {
-    static const std::string NULLVALUE_STRING = Enums::nullvalue_toString(ENUM_NAME);
+    static constexpr auto NULLVALUE_STRING = Enums::nullvalue_toString(ENUM_NAME);
+    static constexpr auto NAME_DEBUG = "Debug";
+    static constexpr auto NAME_RELEASE = "Release";
 
-    static const std::string NAME_DEBUG = "Debug";
-    static const std::string NAME_RELEASE = "Release";
-
-    const std::string& type::toString() const
+    cstring_view type::toString() const
     {
         switch (this->backing_enum)
         {
@@ -19,7 +18,7 @@ namespace vcpkg::PostBuildLint::ConfigurationType
         case ConfigurationType::RELEASE:
             return NAME_RELEASE;
         case ConfigurationType::NULLVALUE:
-            return NULLVALUE_STRING;
+            return NULLVALUE_STRING.data();
         default:
             Checks::unreachable(VCPKG_LINE_INFO);
         }

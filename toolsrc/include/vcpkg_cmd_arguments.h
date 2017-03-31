@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 #include <unordered_set>
-#include "opt_bool.h"
+#include "vcpkg_opt_bool.h"
 
 namespace vcpkg
 {

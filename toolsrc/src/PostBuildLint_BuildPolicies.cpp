@@ -5,14 +5,14 @@
 
 namespace vcpkg::PostBuildLint::BuildPolicies
 {
-    static const std::string NULLVALUE_STRING = Enums::nullvalue_toString(ENUM_NAME);
+    static constexpr auto NULLVALUE_STRING = Enums::nullvalue_toString(ENUM_NAME);
 
     static const std::string NAME_EMPTY_PACKAGE = "PolicyEmptyPackage";
     static const std::string NAME_DLLS_WITHOUT_LIBS = "PolicyDLLsWithoutLIBs";
     static const std::string NAME_ONLY_RELEASE_CRT = "PolicyOnlyReleaseCRT";
     static const std::string NAME_EMPTY_INCLUDE_FOLDER = "PolicyEmptyIncludeFolder";
 
-    const std::string& type::toString() const
+    cstring_view type::toString() const
     {
         switch (this->backing_enum)
         {
@@ -25,7 +25,7 @@ namespace vcpkg::PostBuildLint::BuildPolicies
             case EMPTY_INCLUDE_FOLDER:
                 return NAME_EMPTY_INCLUDE_FOLDER;
             case NULLVALUE:
-                return NULLVALUE_STRING;
+                return NULLVALUE_STRING.data();
             default:
                 Checks::unreachable(VCPKG_LINE_INFO);
         }
@@ -49,7 +49,6 @@ namespace vcpkg::PostBuildLint::BuildPolicies
             case EMPTY_INCLUDE_FOLDER:
                 return CMAKE_VARIABLE_EMPTY_INCLUDE_FOLDER;
             case NULLVALUE:
-                Enums::nullvalue_used(VCPKG_LINE_INFO, ENUM_NAME);
             default:
                 Checks::unreachable(VCPKG_LINE_INFO);
         }

@@ -3,7 +3,6 @@
 #include "package_spec.h"
 #include "vcpkg_Files.h"
 #include "vcpkg_System.h"
-#include "vcpkg_Environment.h"
 #include "coff_file_reader.h"
 #include "PostBuildLint_BuildInfo.h"
 #include "PostBuildLint_BuildType.h"
@@ -622,7 +621,7 @@ namespace vcpkg::PostBuildLint
 
     static size_t perform_all_checks_and_return_error_count(const package_spec& spec, const vcpkg_paths& paths)
     {
-        const fs::path dumpbin_exe = Environment::get_dumpbin_exe(paths);
+        const fs::path dumpbin_exe = paths.get_dumpbin_exe();
 
         BuildInfo build_info = read_build_info(paths.build_info_file_path(spec));
         const fs::path package_dir = paths.package_dir(spec);
@@ -662,7 +661,7 @@ namespace vcpkg::PostBuildLint
 
         switch (build_info.library_linkage)
         {
-            case LinkageType::backing_enum_t::DYNAMIC:
+            case LinkageType::DYNAMIC:
                 {
                     const std::vector<fs::path> debug_dlls = Files::recursive_find_files_with_extension_in_dir(debug_bin_dir, ".dll");
                     const std::vector<fs::path> release_dlls = Files::recursive_find_files_with_extension_in_dir(release_bin_dir, ".dll");

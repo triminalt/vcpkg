@@ -137,7 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BinaryParagraph.h" />
-    <ClInclude Include="..\include\lazy.h" />
+    <ClInclude Include="..\include\vcpkg_lazy.h" />
     <ClInclude Include="..\include\paragraph_parse_result.h" />
     <ClInclude Include="..\include\PostBuildLint_BuildInfo.h" />
     <ClInclude Include="..\include\PostBuildLint_BuildPolicies.h" />
@@ -147,7 +147,7 @@
     <ClInclude Include="..\include\ImmutableSortedVector.h" />
     <ClInclude Include="..\include\MachineType.h" />
     <ClInclude Include="..\include\metrics.h" />
-    <ClInclude Include="..\include\opt_bool.h" />
+    <ClInclude Include="..\include\vcpkg_opt_bool.h" />
     <ClInclude Include="..\include\package_spec.h" />
     <ClInclude Include="..\include\package_spec_parse_result.h" />
     <ClInclude Include="..\include\Paragraphs.h" />
@@ -168,7 +168,6 @@
     <ClInclude Include="..\include\vcpkg_Commands.h" />
     <ClInclude Include="..\include\vcpkg_Dependencies.h" />
     <ClInclude Include="..\include\vcpkg_Enums.h" />
-    <ClInclude Include="..\include\vcpkg_Environment.h" />
     <ClInclude Include="..\include\vcpkg_Files.h" />
     <ClInclude Include="..\include\vcpkg_Graphs.h" />
     <ClInclude Include="..\include\vcpkg_Input.h" />
@@ -207,7 +206,7 @@
     <ClCompile Include="..\src\commands_version.cpp" />
     <ClCompile Include="..\src\MachineType.cpp" />
     <ClCompile Include="..\src\metrics.cpp" />
-    <ClCompile Include="..\src\opt_bool.cpp" />
+    <ClCompile Include="..\src\vcpkg_opt_bool.cpp" />
     <ClCompile Include="..\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -231,8 +230,6 @@
     <ClCompile Include="..\src\vcpkg_Checks.cpp" />
     <ClCompile Include="..\src\vcpkg_cmd_arguments.cpp" />
     <ClCompile Include="..\src\vcpkg_Dependencies.cpp" />
-    <ClCompile Include="..\src\vcpkg_Enums.cpp" />
-    <ClCompile Include="..\src\vcpkg_Environment.cpp" />
     <ClCompile Include="..\src\vcpkg_Files.cpp" />
     <ClCompile Include="..\src\vcpkg_Input.cpp" />
     <ClCompile Include="..\src\vcpkg_paths.cpp" />

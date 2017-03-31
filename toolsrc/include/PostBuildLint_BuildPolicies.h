@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <array>
+#include "vcpkg_Strings.h"
 
 namespace vcpkg::PostBuildLint::BuildPolicies
 {
@@ -19,14 +20,14 @@ namespace vcpkg::PostBuildLint::BuildPolicies
         constexpr explicit type(backing_enum_t backing_enum) : backing_enum(backing_enum) { }
         constexpr operator backing_enum_t() const { return backing_enum; }
 
-        const std::string& toString() const;
+        cstring_view toString() const;
         const std::string& cmake_variable() const;
 
     private:
         backing_enum_t backing_enum;
     };
 
-    static const std::string ENUM_NAME = "vcpkg::PostBuildLint::BuildPolicies";
+    static constexpr char ENUM_NAME[] = "vcpkg::PostBuildLint::BuildPolicies";
 
     static constexpr type NULLVALUE(backing_enum_t::NULLVALUE);
     static constexpr type EMPTY_PACKAGE(backing_enum_t::EMPTY_PACKAGE);

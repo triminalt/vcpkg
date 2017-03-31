@@ -51,9 +51,6 @@
     <ClCompile Include="..\src\vcpkg_Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\vcpkg_Environment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\coff_file_reader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,9 +138,6 @@
     <ClCompile Include="..\src\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\opt_bool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\PostBuildLint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -162,9 +156,6 @@
     <ClCompile Include="..\src\PostBuildLint_BuildType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\vcpkg_Enums.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\commands_ci.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -172,6 +163,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\paragraph_parse_result.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vcpkg_opt_bool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -230,16 +224,10 @@
     <ClInclude Include="..\include\vcpkg_Dependencies.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\vcpkg_Environment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\vcpkglib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ImmutableSortedVector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\opt_bool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\vcpkg_Checks.h">
@@ -293,13 +281,16 @@
     <ClInclude Include="..\include\vcpkg_Chrono.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\lazy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\paragraph_parse_result.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\vcpkg_expected.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vcpkg_lazy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vcpkg_opt_bool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

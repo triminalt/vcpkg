@@ -3,10 +3,16 @@
 #include "vcpkg_expected.h"
 #include "package_spec.h"
 #include "BinaryParagraph.h"
-#include "lazy.h"
+#include "vcpkg_lazy.h"
 
 namespace vcpkg
 {
+    struct vcvarsall_and_platform_toolset
+    {
+        fs::path vcvarsall;
+        std::wstring platform_toolset;
+    };
+
     struct vcpkg_paths
     {
         static expected<vcpkg_paths> create(const fs::path& vcpkg_root_dir);
@@ -40,10 +46,15 @@ namespace vcpkg
         const fs::path& get_cmake_exe() const;
         const fs::path& get_git_exe() const;
         const fs::path& get_nuget_exe() const;
+        const fs::path& get_dumpbin_exe() const;
+        const vcvarsall_and_platform_toolset& get_vcvarsall_bat() const;
 
     private:
         lazy<fs::path> cmake_exe;
         lazy<fs::path> git_exe;
         lazy<fs::path> nuget_exe;
     };
+
+
+
 }

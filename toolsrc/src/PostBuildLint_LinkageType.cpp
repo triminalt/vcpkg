@@ -5,7 +5,7 @@
 
 namespace vcpkg::PostBuildLint::LinkageType
 {
-    static const std::string NULLVALUE_STRING = Enums::nullvalue_toString(ENUM_NAME);
+   // static constexpr const auto NULLVALUE_STRING = Enums::nullvalue_toString(ENUM_NAME);
 
     static const std::string NAME_DYNAMIC = "dynamic";
     static const std::string NAME_STATIC = "static";
@@ -19,7 +19,7 @@ namespace vcpkg::PostBuildLint::LinkageType
         case LinkageType::STATIC:
             return NAME_STATIC;
         case LinkageType::NULLVALUE:
-            return NULLVALUE_STRING;
+            //return NULLVALUE_STRING;
         default:
             Checks::unreachable(VCPKG_LINE_INFO);
         }

@@ -2,7 +2,7 @@
 
 #include "filesystem_fs.h"
 #include "PostBuildLint_BuildPolicies.h"
-#include "opt_bool.h"
+#include "vcpkg_opt_bool.h"
 #include "PostBuildLint_LinkageType.h"
 
 namespace vcpkg::PostBuildLint

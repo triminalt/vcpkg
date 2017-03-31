@@ -1,7 +1,7 @@
 #include "pch.h"
 #include  "PostBuildLint_BuildInfo.h"
 #include "vcpkg_Checks.h"
-#include "opt_bool.h"
+#include "vcpkg_opt_bool.h"
 #include "vcpkglib_helpers.h"
 #include "Paragraphs.h"
 

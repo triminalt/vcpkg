@@ -31,7 +31,8 @@ namespace vcpkg::Checks
     [[noreturn]]
     void exit_with_message(const line_info& linfo, const cstring_view errorMessage)
     {
-        System::println(System::color::error, errorMessage);
+        if (errorMessage)
+            System::println(System::color::error, errorMessage);
         exit_fail(linfo);
     }
 }
