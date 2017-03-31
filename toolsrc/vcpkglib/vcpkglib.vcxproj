@@ -138,7 +138,6 @@
   <ItemGroup>
     <ClInclude Include="..\include\BinaryParagraph.h" />
     <ClInclude Include="..\include\lazy.h" />
-    <ClInclude Include="..\include\LineInfo.h" />
     <ClInclude Include="..\include\paragraph_parse_result.h" />
     <ClInclude Include="..\include\PostBuildLint_BuildInfo.h" />
     <ClInclude Include="..\include\PostBuildLint_BuildPolicies.h" />
@@ -183,7 +182,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\BinaryParagraph.cpp" />
     <ClCompile Include="..\src\commands_ci.cpp" />
-    <ClCompile Include="..\src\LineInfo.cpp" />
     <ClCompile Include="..\src\paragraph_parse_result.cpp" />
     <ClCompile Include="..\src\PostBuildLint_BuildInfo.cpp" />
     <ClCompile Include="..\src\PostBuildLint_BuildPolicies.cpp" />

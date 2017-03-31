@@ -40,15 +40,15 @@ namespace vcpkg
             return this->m_error_code;
         }
 
-        T&& value_or_exit(const LineInfo& line_info) &&
+        T&& value_or_exit(const Checks::line_info& linfo) &&
         {
-            exit_if_error(line_info);
+            exit_if_error(linfo);
             return std::move(this->m_t);
         }
 
-        const T& value_or_exit(const LineInfo& line_info) const &
+        const T& value_or_exit(const Checks::line_info& linfo) const &
         {
-            exit_if_error(line_info);
+            exit_if_error(linfo);
             return this->m_t;
         }
 
@@ -71,9 +71,9 @@ namespace vcpkg
         }
 
     private:
-        void exit_if_error(const LineInfo& line_info) const
+        void exit_if_error(const Checks::line_info& linfo) const
         {
-            Checks::check_exit(line_info, !this->m_error_code, this->m_error_code.message());
+            Checks::check_exit(linfo, !this->m_error_code, this->m_error_code.message());
         }
 
         std::error_code m_error_code;

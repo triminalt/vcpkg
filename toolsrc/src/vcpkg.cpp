@@ -128,10 +128,11 @@ static void loadConfig()
 
             auto user_id = keys["User-Id"];
             auto user_time = keys["User-Since"];
-            Checks::check_throw(VCPKG_LINE_INFO, !user_id.empty() && !user_time.empty(), ""); // Use as goto to the catch statement
-
-            SetUserInformation(user_id, user_time);
-            return;
+            if (!user_id.empty() && !user_time.empty())
+            {
+                SetUserInformation(user_id, user_time);
+                return;
+            }
         }
     }
     catch (...)

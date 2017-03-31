@@ -5,18 +5,12 @@
 
 namespace vcpkg::Checks
 {
-    static void print_line_info_if_debug(const LineInfo& line_info)
+    [[noreturn]]
+    void unreachable(const line_info& linfo)
     {
-        if (g_debugging)
-        {
-            System::println(System::color::error, line_info.toString());
-        }
-    }
-
-    __declspec(noreturn) void unreachable(const LineInfo& line_info)
-    {
-        System::println(System::color::error, "Error: Unreachable code was reached");
-        System::println(System::color::error, line_info.toString()); // Always print line_info here
+        System::println(System::color::error,
+            "Error: Unreachable code was reached\n"
+            "%s(%d)", linfo.file_name, linfo.line_number); // Always print linfo here
 #ifndef NDEBUG
         std::abort();
 #else
@@ -24,45 +18,20 @@ namespace vcpkg::Checks
 #endif
     }
 
-    void exit_with_code(const LineInfo& line_info, const int exit_code)
+    [[noreturn]]
+    void exit_with_code(const line_info& linfo, const int exit_code)
     {
-        print_line_info_if_debug(line_info);
+        if (g_debugging)
+        {
+            System::println(System::color::error, "[DEBUG] %s(%d)", linfo.file_name, linfo.line_number);
+        }
         ::exit(exit_code);
     }
 
-    __declspec(noreturn) void exit_with_message(const LineInfo& line_info, const cstring_view errorMessage)
+    [[noreturn]]
+    void exit_with_message(const line_info& linfo, const cstring_view errorMessage)
     {
         System::println(System::color::error, errorMessage);
-        exit_fail(line_info);
-    }
-
-    __declspec(noreturn) void throw_with_message(const LineInfo& line_info, const cstring_view errorMessage)
-    {
-        print_line_info_if_debug(line_info);
-        throw std::runtime_error(errorMessage);
-    }
-
-    void check_throw(const LineInfo& line_info, bool expression, const cstring_view errorMessage)
-    {
-        if (!expression)
-        {
-            throw_with_message(line_info, errorMessage);
-        }
-    }
-
-    void check_exit(const LineInfo& line_info, bool expression)
-    {
-        if (!expression)
-        {
-            exit_with_message(line_info, "");
-        }
-    }
-
-    void check_exit(const LineInfo& line_info, bool expression, const cstring_view errorMessage)
-    {
-        if (!expression)
-        {
-            exit_with_message(line_info, errorMessage);
-        }
+        exit_fail(linfo);
     }
 }

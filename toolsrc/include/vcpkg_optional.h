@@ -1,5 +1,4 @@
 #pragma once
-#include "LineInfo.h"
 #include "vcpkg_Checks.h"
 
 namespace vcpkg
@@ -22,15 +21,15 @@ namespace vcpkg
 
         optional(T&& t) : m_is_present(true), m_t(std::move(t)) { }
 
-        T&& value_or_exit(const LineInfo& line_info) &&
+        T&& value_or_exit(const Checks::line_info& linfo) &&
         {
-            this->exit_if_null(line_info);
+            this->exit_if_null(linfo);
             return std::move(this->m_t);
         }
 
-        const T& value_or_exit(const LineInfo& line_info) const &
+        const T& value_or_exit(const Checks::line_info& linfo) const &
         {
-            this->exit_if_null(line_info);
+            this->exit_if_null(linfo);
             return this->m_t;
         }
 
@@ -67,9 +66,9 @@ namespace vcpkg
         }
 
     private:
-        void exit_if_null(const LineInfo& line_info) const
+        void exit_if_null(const Checks::line_info& linfo) const
         {
-            Checks::check_exit(line_info, this->m_is_present, "Value was null");
+            Checks::check_exit(linfo, this->m_is_present, "Value was null");
         }
 
         bool m_is_present;

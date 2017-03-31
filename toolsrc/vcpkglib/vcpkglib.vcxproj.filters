@@ -171,9 +171,6 @@
     <ClCompile Include="..\src\vcpkg_Chrono.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\LineInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\paragraph_parse_result.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -297,9 +294,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\lazy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\LineInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\paragraph_parse_result.h">

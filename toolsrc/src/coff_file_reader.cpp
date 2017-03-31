@@ -30,9 +30,9 @@ namespace vcpkg::COFFFileReader
         return data;
     }
 
-    static void verify_equal_strings(const LineInfo& line_info, const char* expected, const char* actual, int size, const char* label)
+    static void verify_equal_strings(const Checks::line_info& linfo, const char* expected, const char* actual, int size, const char* label)
     {
-        Checks::check_exit(line_info, memcmp(expected, actual, size) == 0, "Incorrect string (%s) found. Expected: (%s) but found (%s)", label, expected, actual);
+        Checks::check_exit(linfo, memcmp(expected, actual, size) == 0, "Incorrect string (%s) found. Expected: (%s) but found (%s)", label, expected, actual);
     }
 
     static void read_and_verify_PE_signature(fstream& fs)
